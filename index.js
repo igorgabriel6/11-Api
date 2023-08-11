@@ -1,6 +1,12 @@
 import express from "express";      // Requisição do pacote do express
+import { selectUsuarios, selectUsuario, insertUsuario, deleteUsuario, updateUsuario } from "./bd.js";
+import dotenv from "dotenv";
+
+dotenv.config();
+
 const app = express();              // Instancia o Express
 const port = 3000;                  // Define a porta
+app.use(express.json());
 
 app.get("/", (req, res) => {        // Cria a rota da raiz do projeto
   res.json({
@@ -9,14 +15,10 @@ app.get("/", (req, res) => {        // Cria a rota da raiz do projeto
   console.log("Rota / solicitada");
 });
 
-app.listen(port, () => {            // Um socket para "escutar" as requisições
-  console.log(`Serviço escutando na porta:  ${port}`);
-});
+
 
 //index.js
-import dotenv from "dotenv";
 
-dotenv.config();
 
 
 app.get("/usuarios", async (req, res) => {
@@ -44,7 +46,6 @@ app.get("/usuario/:id", async (req, res) => {
   }
 });
 
-app.use(express.json());
 
 
 
@@ -73,7 +74,6 @@ app.delete("/usuario/:id", async (req, res) => {
   }
 });
 
-import { selectUsuarios, selectUsuario, insertUsuario, deleteUsuario, updateUsuario } from "./bd.js";
 
 app.patch("/usuario", async (req, res) => {
   console.log("Rota PATCH /usuario solicitada");
@@ -87,4 +87,8 @@ app.patch("/usuario", async (req, res) => {
     console.log(error);
     res.status(error.status || 500).json({ message: error.message || "Erro!" });
   }
+});
+
+app.listen(port, () => {            // Um socket para "escutar" as requisições
+  console.log(`Serviço escutando na porta:  ${port}`);
 });
