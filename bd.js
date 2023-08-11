@@ -15,7 +15,6 @@ async function selectUsuarios() {
   return res.rows;
 }
 
-export { selectUsuarios };
 
 
 async function selectUsuario(id) {
@@ -27,4 +26,12 @@ async function selectUsuario(id) {
 }
 
 
-export { selectUsuarios, selectUsuario };
+
+async function insertUsuario(data) {
+  const client = await connect();
+  const query = "INSERT INTO usuario (nome,senha,email) VALUES ($1,$2,$3) ";
+  const usuario = [data.nome, data.senha, data.email];
+  await client.query(query, usuario);
+}
+
+export { selectUsuarios, selectUsuario, insertUsuario };
