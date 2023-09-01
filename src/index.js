@@ -25,6 +25,9 @@ app.get("/", (req, res) => {        // Cria a rota da raiz do projeto
 
 app.listen(port, () => {            // Um socket para "escutar" as requisições
   console.log(`Serviço escutando na porta:  ${port}`);
+
+app.use(express.urlencoded({ extended: true }));
+
 });
 
 
